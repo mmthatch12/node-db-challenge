@@ -21,18 +21,31 @@ function addResource(reso) {
         })
 }
 
-function addProject() {
-    return db('projects')
+function addProject(proj) {
+    return db('projects as p')
+        .insert(proj)
+        .then(([proj]) => {
+            return proj
+        })
 }
 
 function findProjects() {
     return db('projects')
 }
 
-function addTask() {
-
+function addTask(id, task) {
+    return db('projects as p')
+        .join('tasks as t', 'p.id', '=', 't.project_id')
+        .where({ project_id: id})
+        .insert(task)
+        .then(([task]) => {
+            return task
+        })
+        
 }
 
-function findTask() {
-
+function findTask(id) {
+    return db('projects as p')
+    .join('tasks as t', 'p.id', '=', 't.project_id')
+    .where({ project_id: id})
 }
