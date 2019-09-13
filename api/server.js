@@ -5,7 +5,7 @@ const ProjectRouter = require('../recipes/project-router')
 const server = express()
 
 server.use(express.json())
-server.use('/recipes', ProjectRouter)
+server.use('/projects', ProjectRouter)
 
 
 server.get('/', (req, res) => {
