@@ -18,11 +18,11 @@ function addResource() {
 }
 
 function addProject() {
-
+    return db('projects')
 }
 
 function findProjects() {
-
+    return db('projects')
 }
 
 function addTask() {
@@ -30,5 +30,5 @@ function addTask() {
 }
 
 function findTask() {
-    
+
 }

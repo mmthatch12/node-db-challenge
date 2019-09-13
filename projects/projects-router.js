@@ -6,6 +6,9 @@ const router = express.Router()
 
 router.get('/resources', (req, res) => {
     Projects.findResources()
+        .then(resources => {
+            res.status(200).json(resources)
+        })
 })
 
 router.post('/resources', (req, res) => {
@@ -16,6 +19,13 @@ router.post('/resources', (req, res) => {
 
 router.get('/', (req, res) => {
     Projects.findProjects()
+        .then(projects => {
+            res.status(200).json(projects)
+        })
+        .catch(error => {
+            console.log(error)
+            res.status(500).json({ error: 'Could not load projects'})
+        })
 })
 
 router.post('/', (req, res) => {
