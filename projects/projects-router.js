@@ -6,7 +6,7 @@ const router = express.Router()
 
 
 router.get('/', (req, res) => {
-    Projects.findProjects()
+    Projects.find()
         .then(proj => {
             const tf = proj.map(proj => {
                 Object.defineProperty(proj, "completed", {value:(proj.completed === 1) ? true:false})
@@ -23,7 +23,7 @@ router.post('/', (req, res) => {
     const pBody = req.body
 
     if(pBody.project_name){
-        Projects.addProject(pBody)
+        Projects.add(pBody)
             .then(proj => {
                 res.status(201).json(proj)
             })
