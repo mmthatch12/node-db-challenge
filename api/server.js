@@ -1,11 +1,11 @@
 const express = require('express')
 
-const ResourcesRouter = require('../recipes/resources-router')
+const ProjectRouter = require('../recipes/project-router')
 
 const server = express()
 
 server.use(express.json())
-server.use('/recipes', ResourcesRouter)
+server.use('/recipes', ProjectRouter)
 
 
 server.get('/', (req, res) => {
