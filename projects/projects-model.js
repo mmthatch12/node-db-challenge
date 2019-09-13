@@ -10,11 +10,15 @@ module.exports = {
 }
 
 function findResources() {
-
+    return db('resources')
 }
 
-function addResource() {
-
+function addResource(reso) {
+    return db('resources')
+        .insert(reso)
+        .then(([resc]) => {
+            return resc
+        })
 }
 
 function addProject() {
