@@ -35,8 +35,11 @@ router.post('/resources', (req, res) => {
 
 router.get('/', (req, res) => {
     Projects.findProjects()
-        .then(projects => {
-            res.status(200).json(projects)
+        .then(proj => {
+            const tf = proj.map(proj => {
+                Object.defineProperty(proj, "completed", {value:(proj.completed === 1) ? true:false})
+                return proj })
+            res.status(200).json(tf)
         })
         .catch(error => {
             console.log(error)
@@ -65,7 +68,10 @@ router.get('/:id', (req, res) => {
 
     Projects.findTask(id)
         .then(task => {
-            res.status(200).json(task)
+            const tf = task.map(task => {
+                Object.defineProperty(task, "task_completed", {value:(task.task_completed === 1) ? true:false})
+                return task })
+            res.status(200).json(tf)
         })
         .catch(error => {
             console.log(error)
@@ -75,20 +81,18 @@ router.get('/:id', (req, res) => {
 
 router.post('/:id/tasks', (req, res) => {
     const { id } = req.params
-    const pBody = req.body
+    const tBody = req.body
 
-    Projects.findTask(id)
-        .then(proj => {
-            Projects.addTask(pBody)
-                .then(task => {
-                    res.status(201).json(task)
-                })
-                .catch(error => {
-                    console.log(error)
-                    res.status(500).json({ error: 'Could no add task'})
-                })
-
+    Projects.addTask(id, tBody)
+        .then(task => {
+            res.status(201).json(task)
         })
+        .catch(error => {
+            console.log(error)
+            res.status(500).json({ error: 'Could no add task'})
+        })
+
+        
 })
 
 module.exports = router
